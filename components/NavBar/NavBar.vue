@@ -1,7 +1,7 @@
 <template>
 	<view class="nav-bar">
 		<view class="nav-bar-top">
-			<!-- 专门处理APP以及小程序的导航栏 -->
+			<!-- 顶部垫片，专门处理APP以及小程序的导航栏 -->
 			<view :style="{height: statusHeight + 'rpx'}"></view>
 			<view @click="goSearchPage" class="nav-bar-content" :style="{marginRight: marginRight + 'rpx'}">
 				<uni-icons type="search" color="#999"></uni-icons>
