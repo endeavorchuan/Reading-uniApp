@@ -32,7 +32,7 @@
 		methods: {
 			async _initLabelList() {
 				const labelList = await this.$http.get_label_list()
-				this.labelList = labelList
+				this.labelList = [{name:'全部'}, ...labelList]
 			},
 			changeActiveIndex(index) {
 				this.activeIndex = index

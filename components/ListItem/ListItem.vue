@@ -2,7 +2,7 @@
 	<view class="list-scroll-container">
 		<scroll-view scroll-y="true" class="list-scroll">
 			<view>
-				<ListCard v-for="(item, index) in itemList" :key="index" :item="item"></ListCard>
+				<ListCard v-for="(item) in articleList" :key="item._id" :item="item"></ListCard>
 			</view>
 		</scroll-view>
 	</view>
@@ -11,15 +11,12 @@
 <script>
 	export default {
 		name:"ListItem",
+		props: {
+			articleList: Array
+		},
 		data() {
 			return {
-				itemList: [
-					{mode: 'base'},
-					{mode: 'column'},
-					{mode: 'image'},
-					{mode: 'base'},
-					{mode: 'base'},
-				]
+				
 			};
 		}
 	}
