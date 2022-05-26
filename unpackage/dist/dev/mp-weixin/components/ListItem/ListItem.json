@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "list-item": "/components/ListItem/ListItem"
+    "list-card": "/components/ListCard/ListCard"
   },
   "component": true
 }
