@@ -1,8 +1,9 @@
 <template>
-	<view class="container">
-		<text>left</text>
-		<text>center</text>
-		<text>right</text>
+	<view class="home-container">
+		<NavBar></NavBar>
+		<view v-for="(item,index) in 100" :key="index">
+			{{item}}
+		</view>
 	</view>
 </template>
 
