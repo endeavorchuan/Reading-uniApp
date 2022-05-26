@@ -1,4 +1,5 @@
 import App from './App'
+import module from 'ajax/api/index.js'
 
 // #ifndef VUE3
 import Vue from 'vue'
@@ -19,3 +20,5 @@ export function createApp() {
   }
 }
 // #endif
+
+Vue.prototype.$http = module

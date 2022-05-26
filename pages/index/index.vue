@@ -18,13 +18,14 @@
 			}
 		},
 		methods: {
-			_initLabelList() {
-				uniCloud.callFunction({
-					name: 'get_label_list',
-					success:(res) => {
-						this.labelList = res.result.labelList
-					}
-				})
+			async _initLabelList() {
+				const labelList = await this.$http.get_label_list()
+				this.labelList = labelList
+				// 	name: 'get_label_list',
+				// 	success:(res) => {
+				// 		this.labelList = res.result.labelList
+				// 	}
+				// })
 			}
 		},
 	}
