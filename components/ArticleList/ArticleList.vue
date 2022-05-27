@@ -1,8 +1,8 @@
 <template>
-	<swiper class="swiper-container" :current="activeIndex" @change="changeCurrentIndex">
+	<swiper class="swiper-container" :current="activeIndex" @change="changeActiveIndex">
 		<swiper-item v-for="(item, index) in labelList" :key="item._id">
 			<view class="swiper-item">
-				<ListItem :articleList="articleData[index]"></ListItem>
+				<ListItem :loadData="loadData[index]" :articleList="articleData[index]" @loadMore="loadMoreData"></ListItem>
 			</view>
 		</swiper-item>
 	</swiper>
@@ -25,21 +25,54 @@
 		},
 		data() {
 			return {
-				articleData: {}
+				articleData: {},
+				loadData: {},
+				page: 1,
+				pageSize: 7
 			};
 		},
 		methods: {
-			changeCurrentIndex(e) {
+			changeActiveIndex(e) {
 				const {current} = e.detail
-				this.$emit('changeCurrentIndex', current)
-				if (!this.articleData[current] || !this.articleData[current].length) {
+				this.$emit('changeActiveIndex', current)
+				if (!this.articleData[current] || this.articleData[current].length === 0) {
 					this._getArticleList(current)
 				}
 			},
 			/* 进行数据的请求获取 */
 			async _getArticleList(currentIndex) {
-				const articleList = await this.$http.get_article_list({classify: this.labelList[currentIndex].name})
-				this.$set(this.articleData, currentIndex, articleList)
+				// 指定每一个分类里面的页数信息
+				if (!this.loadData[currentIndex]) {
+					this.loadData[currentIndex] = {
+						page: 1,
+						loading: 'loading',
+						total: 0
+					}
+				}
+				
+				const {articleList, total} = await this.$http.get_article_list({
+					classify: this.labelList[currentIndex].name,
+					page: this.loadData[currentIndex].page,
+					pageSize: this.pageSize
+				})
+				
+				let oldList = this.articleData[currentIndex] || []	 // 追加每一次的请求数据结果
+				oldList.push(...articleList)
+				this.loadData[currentIndex].total = total
+				this.$set(this.articleData, currentIndex, oldList)
+			},
+			/* 到底加载更多内容事件 */
+			loadMoreData() {
+				if (this.loadData[this.activeIndex].total === this.articleData[this.activeIndex].length) {
+					this.loadData[this.activeIndex] = {
+						...this.loadData[this.activeIndex],
+						...{loading: 'noMore', page: this.loadData[this.activeIndex].page}
+					}
+					this.$forceUpdate()
+					return
+				}
+				this.loadData[this.activeIndex].page += 1
+				this._getArticleList(this.activeIndex)
 			}
 		}
 	}

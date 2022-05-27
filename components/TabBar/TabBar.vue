@@ -1,7 +1,7 @@
 <template>
 	<view class="tab">
 		<!-- 滚动区域 -->
-		<scroll-view scroll-x="true" class="tab-scroll" scroll-with-animation="true" :scroll-into-view="currentIndex">
+		<scroll-view scroll-x="true" class="tab-scroll" :scroll-with-animation="true" :scroll-into-view="currentIndex">
 			<view class="tab-scroll-box">
 				<view 
 					:class="{active: activeIndex === index}"

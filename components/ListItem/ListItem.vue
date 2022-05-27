@@ -1,9 +1,14 @@
 <template>
 	<view class="list-scroll-container">
-		<scroll-view scroll-y="true" class="list-scroll">
+		<scroll-view scroll-y="true" class="list-scroll" @scrolltolower="loadMore">
 			<view>
 				<ListCard v-for="(item) in articleList" :key="item._id" :item="item"></ListCard>
 			</view>
+			<uLi-load-more
+				v-if="articleList.length === 0 || articleList.length > 7"
+				:status="loadData.loading || 'loading'"
+				>
+			</uLi-load-more>
 		</scroll-view>
 	</view>
 </template>
@@ -12,12 +17,30 @@
 	export default {
 		name:"ListItem",
 		props: {
-			articleList: Array
+			articleList: {
+				type: Array,
+				default() {
+					return []
+				}
+			}, 
+			loadData: {
+				type: Object,
+				default() {
+					return {
+						loading: 'loading'
+					}
+				}
+			}
 		},
 		data() {
 			return {
 				
 			};
+		},
+		methods: {
+			loadMore() {
+				this.$emit('loadMore')
+			}
 		}
 	}
 </script>
