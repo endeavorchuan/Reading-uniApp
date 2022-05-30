@@ -24,14 +24,15 @@
 					/>
 				</uni-forms-item>
 				<uni-forms-item label="密码" name="password">
-					<input
+					<uni-easyinput
+						:inputBorder="false"
 						placeholder-class="placeholder"
 						class="form-input"
 						type="password"
 						value="" 
 						placeholder="请输入密码"
 						v-model="formData.password"
-					/>
+					></uni-easyinput>
 				</uni-forms-item>
 			</view>
 			<view class="" v-else>
@@ -67,6 +68,7 @@
 </template>
 
 <script>
+	import {mapMutations} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -82,14 +84,32 @@
 		methods: {
 			async _userLoginSubmit() {
 				const res = await this.$refs.form.submit()
-				console.log(res);
+				// 发送数据到后端
+				this._sendUserInfo({...res, type: this.type})
 			},
 			
 			/* 改变当前登陆类型 */
 			changeLoginType(type) {
 				this.type = type
 				this.$refs.form.clearValidate([])	// 清空校验规则
-			}
+			},
+			
+			/* 发送数据到后端 */
+			async _sendUserInfo(data) {
+				const userInfo = await this.$http.user_login(data)
+				if (userInfo) {
+					// 使用store的形式进行存储
+					this.updateUserInfo(userInfo)
+					uni.showToast({
+						title: '用户登录成功',
+						icon: 'none'
+					})
+					setTimeout(() => {
+						uni.navigateBack()
+					}, 1500)
+				}
+			},
+			...mapMutations(['updateUserInfo'])
 		}
 	}
 </script>

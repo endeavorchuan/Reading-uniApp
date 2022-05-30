@@ -127,6 +127,9 @@ page {
 .data-v-1444ccc6 .label-text ._span {
   font-size: 32rpx;
 }
+.data-v-1444ccc6 .uni-easyinput__content-input {
+  padding-left: 0 !important;
+}
 .placeholder.data-v-1444ccc6 {
   color: #c2c8dc;
 }

@@ -58,6 +58,10 @@
 	font-size: 32rpx;
 }
 
+/deep/ .uni-easyinput__content-input {
+	padding-left: 0 !important;
+}
+
 .placeholder {
 	color: #c2c8dc;
 }
