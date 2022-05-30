@@ -1,5 +1,8 @@
 import App from './App'
 import module from 'ajax/api/index.js'
+import userRuleMixin from './common/rulesMixin.js'
+
+Vue.use(userRuleMixin)
 
 // #ifndef VUE3
 import Vue from 'vue'
