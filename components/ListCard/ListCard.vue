@@ -8,7 +8,7 @@
 			<view class="list-card-content">
 				<view class="list-card-content-title">
 					<text class="text">{{item.title}}</text>
-					<SaveLikes></SaveLikes>
+					<SaveLikes :articleId="item._id"></SaveLikes>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="article-type">
@@ -24,7 +24,7 @@
 		<view class="list-card mode-column" v-if="item.mode === 'column'" @click="goAtricleDetail">
 			<view class="list-card-top">
 				<text class="text">{{item.title}}</text>
-				<SaveLikes></SaveLikes>
+				<SaveLikes :articleId="item._id"></SaveLikes>
 			</view>
 			<view class="list-card-middle">
 				<view class="image-container" v-for="(img, index) in item.cover.slice(0, 3)" :key="index">
@@ -49,7 +49,7 @@
 			</view>
 			<view class="list-card-middle">
 				<text class="text">{{item.title}}</text>
-				<SaveLikes></SaveLikes>
+				<SaveLikes :articleId="item._id"></SaveLikes>
 			</view>
 			<view class="list-card-content-desc list-card-bottom">
 				<view class="article-type">

@@ -4140,8 +4140,8 @@ module.exports = index_cjs;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
   updateUserInfo: function updateUserInfo(state, userInfo) {
-    uni.setStorageSync('userInfo', userInfo);
-    state.userInfo = userInfo;
+    uni.setStorageSync('userInfo', userInfo); // 修改的是本地存储的用户信息
+    state.userInfo = userInfo; // 修改store数据
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
@@ -4156,6 +4156,51 @@ module.exports = index_cjs;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {};exports.default = _default;
+
+/***/ }),
+
+/***/ 166:
+/*!**********************************************************************************************!*\
+  !*** /Users/chuanchuan/Documents/uni-app_study/uni-app/Reading-uniApp/common/commonMixin.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vuex = __webpack_require__(/*! vuex */ 162);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+
+{
+  install: function install(Vue) {
+    Vue.mixin({
+      data: function data() {
+        return {};
+
+
+      },
+      methods: _objectSpread({
+        checkedisLogin: function checkedisLogin() {var _this = this;
+          // 获取用户的信息
+          return new Promise(function (resolve) {
+            if (_this.userInfo) {// 当前的userInfo中有值
+              resolve();
+            } else {// 未读取到用户信息，即没有登陆
+              uni.navigateTo({
+                url: '/pages/userInfo/login/login',
+                fail: function fail(error) {
+                  console.log(error);
+                } });
+
+            }
+          });
+        } },
+      (0, _vuex.mapMutations)(['updateUserInfo'])),
+
+      computed: _objectSpread({},
+      (0, _vuex.mapState)(['userInfo'])) });
+
+
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -12825,7 +12870,7 @@ webpackContext.id = 72;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get_article_list = exports.get_label_list = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.update_save_like = exports.get_article_list = exports.get_label_list = void 0;
 
 var _http = _interopRequireDefault(__webpack_require__(/*! ../../http.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 首页面的请求
 
@@ -12837,7 +12882,13 @@ var get_label_list = function get_label_list(data) {return (0, _http.default)({
 // 获取文章列表
 exports.get_label_list = get_label_list;var get_article_list = function get_article_list(data) {return (0, _http.default)({
     name: 'get_article_list',
-    data: data });};exports.get_article_list = get_article_list;
+    data: data });};
+
+
+// 收藏或取消收藏文章
+exports.get_article_list = get_article_list;var update_save_like = function update_save_like(data) {return (0, _http.default)({
+    name: 'update_save_like',
+    data: data });};exports.update_save_like = update_save_like;
 
 /***/ })
 
