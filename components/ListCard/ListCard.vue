@@ -3,11 +3,11 @@
 		<!-- 基础卡片 -->
 		<view class="list-card" v-if="item.mode === 'base'" @click="goAtricleDetail">
 			<view class="list-card-img">
-				<image :src="item.cover[0] ? item.cover[0] : '/static/img/logo.jpeg'" mode="aspectFill"></image>
+				<image class="image" :src="item.cover[0] ? item.cover[0] : '/static/img/logo.jpeg'" mode="aspectFill"></image>
 			</view>
 			<view class="list-card-content">
 				<view class="list-card-content-title">
-					<text>{{item.title}}</text>
+					<text class="text">{{item.title}}</text>
 					<SaveLikes></SaveLikes>
 				</view>
 				<view class="list-card-content-desc">
@@ -23,12 +23,12 @@
 		<!-- 多图模式 -->
 		<view class="list-card mode-column" v-if="item.mode === 'column'" @click="goAtricleDetail">
 			<view class="list-card-top">
-				<text>{{item.title}}</text>
+				<text class="text">{{item.title}}</text>
 				<SaveLikes></SaveLikes>
 			</view>
 			<view class="list-card-middle">
 				<view class="image-container" v-for="(img, index) in item.cover.slice(0, 3)" :key="index">
-					<image :src="img" mode="aspectFill"></image>
+					<image class="image" :src="img" mode="aspectFill"></image>
 				</view>
 			</view>
 			<view class="list-card-content-desc list-card-bottom">
@@ -44,11 +44,11 @@
 		<view class="list-card mode-image" v-if="item.mode==='image'" @click="goAtricleDetail">
 			<view class="list-card-top">
 				<view class="image-container">
-					<image :src="item.cover[0]" mode="aspectFill"></image>
+					<image class="image" :src="item.cover[0]" mode="aspectFill"></image>
 				</view>
 			</view>
 			<view class="list-card-middle">
-				<text>{{item.title}}</text>
+				<text class="text">{{item.title}}</text>
 				<SaveLikes></SaveLikes>
 			</view>
 			<view class="list-card-content-desc list-card-bottom">

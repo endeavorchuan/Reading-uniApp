@@ -31,7 +31,7 @@ export default {
 								required: true,
 								'errorMessage': "验证码不能为空",
 							}, {
-								validateFunction: this.validateCode
+								validateFunction: this.validateMobileCode
 							}]
 						}
 					},
@@ -60,8 +60,14 @@ export default {
 					}
 				},
 				/* 验证码自定义验证规则 */
-				validateCode() {
-					return true
+				validateMobileCode(rule, val, data, callback) {
+					switch(true) {
+						case val !== this.returnCode:
+							callback('请输入正确的验证码')
+							break;
+						default:
+							return true
+					}
 				}
 			}
 		})

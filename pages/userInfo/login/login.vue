@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<!-- 表单部分 -->
-		<uni-forms class="forms" ref="form" :modelValue="formData" :rules="userRules">
+		<uni-forms class="forms" ref="form" :modelValue="formData">
 			<view class="" v-if="type === 'account'">
 				<uni-forms-item label="账号" name="loginName">
 					<input
@@ -55,7 +55,7 @@
 						placeholder="请输入验证码"
 						v-model="formData.vCode"
 					/>
-					<SendCode></SendCode>
+					<SendCode @sentCurrentCode="returnCode=$event" @getForm="getForm"></SendCode>
 				</uni-forms-item>
 			</view>
 			<button class="login-btn" @click="_userLoginSubmit">立即登陆</button>
@@ -70,6 +70,9 @@
 <script>
 	import {mapMutations} from 'vuex'
 	export default {
+		onReady() {
+			this.$refs.form.setRules(this.userRules)
+		},
 		data() {
 			return {
 				type: 'account',
@@ -78,7 +81,8 @@
 					passWord: '',
 					phone: "",
 					vCode: ''
-				}
+				},
+				returnCode: null
 			}
 		},
 		methods: {
@@ -109,6 +113,12 @@
 					}, 1500)
 				}
 			},
+			
+			/* 向验证码组件发送form表单 */
+			getForm(cb) {
+				cb && cb(this.$refs.form)
+			},
+			
 			...mapMutations(['updateUserInfo'])
 		}
 	}

@@ -2767,7 +2767,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
                 required: true,
                 'errorMessage': "验证码不能为空" },
               {
-                validateFunction: this.validateCode }] } },
+                validateFunction: this.validateMobileCode }] } },
 
 
 
@@ -2796,8 +2796,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
         },
         /* 验证码自定义验证规则 */
-        validateCode: function validateCode() {
-          return true;
+        validateMobileCode: function validateMobileCode(rule, val, data, callback) {
+          switch (true) {
+            case val !== this.returnCode:
+              callback('请输入正确的验证码');
+              break;
+            default:
+              return true;}
+
         } } });
 
 
@@ -2813,14 +2819,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.user_login = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.get_code = exports.user_login = void 0;
 
 var _http = _interopRequireDefault(__webpack_require__(/*! ../../http.js */ 71));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 用户信息相关的请求
 
 // 用户登陆
 var user_login = function user_login(data) {return (0, _http.default)({
     name: 'user_login',
-    data: data });};exports.user_login = user_login;
+    data: data });};
+
+
+// 发送验证码
+exports.user_login = user_login;var get_code = function get_code(data) {return (0, _http.default)({
+    name: 'get_code',
+    data: data });};exports.get_code = get_code;
 
 /***/ }),
 
