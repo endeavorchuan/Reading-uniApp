@@ -109,7 +109,7 @@ var components
 try {
   components = {
     SaveLikes: function() {
-      return __webpack_require__.e(/*! import() | components/SaveLikes/SaveLikes */ "components/SaveLikes/SaveLikes").then(__webpack_require__.bind(null, /*! @/components/SaveLikes/SaveLikes.vue */ 95))
+      return Promise.all(/*! import() | components/SaveLikes/SaveLikes */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/SaveLikes/SaveLikes")]).then(__webpack_require__.bind(null, /*! @/components/SaveLikes/SaveLikes.vue */ 95))
     }
   }
 } catch (e) {

@@ -3,11 +3,14 @@
 		<view class="nav-bar-top">
 			<!-- 顶部垫片，专门处理APP以及小程序的导航栏 -->
 			<view :style="{height: statusHeight + 'rpx'}"></view>
-			<view @click="goSearchPage" class="nav-bar-content" :style="{marginRight: marginRight + 'rpx'}">
+			<!-- 当组建应用于搜索界面的时候，展示回退按钮 -->
+			<view @click="returnArticleList" class="return-icon" :style="{top: statusHeight + 'rpx'}" v-if="isSearch">
+				<uni-icons type="back" size="22" color="#fff"></uni-icons>
+			</view>
+			<view @click="goSearchPage" class="nav-bar-content" :style="{marginRight: marginRight + 'rpx', marginLeft: isSearch ? '20rpx' : ''}">
 				<uni-icons type="search" color="#999"></uni-icons>
-				<view class="nav-bar-search-text">
-					输入文章标题进行搜索
-				</view>
+				<view v-if="!isSearch" class="nav-bar-search-text">输入文章标题进行搜索</view>
+				<input v-else type="text" class="search-input" placeholder="输入文章标题进行搜索">
 			</view>
 		</view>
 		<!-- 底部的垫片 -->
@@ -18,6 +21,12 @@
 <script>
 	export default {
 		name:"NavBar",	// 方便devtools进行内容查找
+		props: {
+			isSearch: {
+				type: Boolean,
+				default: false
+			}
+		},
 		created() {
 			this.getSystemInfo();
 		},
@@ -38,9 +47,21 @@
 				// #endif
 			},
 			goSearchPage() {
+				if (this.isSearch)
+					return
 				uni.navigateTo({
 					url: '/pages/search/search'
 				})
+			},
+			returnArticleList() {
+				// #ifdef H5
+				uni.switchTab({
+					url: '../../pages/index/index'
+				})
+				// #endif
+				// #ifndef H5
+					uni.navigateBack()
+				// #endif
 			}
 		},
 	}
