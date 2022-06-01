@@ -15,7 +15,7 @@
 			</view>
 		</scroll-view>
 		<!-- 图标部分 -->
-		<view class="tab-icon">
+		<view @click="goLabelAdmin" class="tab-icon">
 			<uni-icons type="gear" size="26" color="#666"></uni-icons>
 		</view>
 	</view>
@@ -41,6 +41,13 @@
 		methods: {
 			changeActiveIndex(index) {
 				this.$emit('changeActiveIndex', index)
+			},
+			// 跳转到标签管理界面
+			async goLabelAdmin() {
+				await this.checkedisLogin()
+				uni.navigateTo({
+					url: '/pages/labelAdmin/labelAdmin'
+				})
 			}
 		}
 	}

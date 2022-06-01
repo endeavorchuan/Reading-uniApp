@@ -212,7 +212,7 @@ var _vuex = __webpack_require__(/*! vuex */ 24);function _interopRequireDefault(
       isShowHistory: true };
 
   },
-  methods: _objectSpread({
+  methods: _objectSpread(_objectSpread({
     // 发送数据到云函数
     _sendSearchData: function _sendSearchData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _yield$_this$$http$ge, articleList;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 _this.isShowHistory = false;
@@ -229,7 +229,12 @@ var _vuex = __webpack_require__(/*! vuex */ 24);function _interopRequireDefault(
       console.log(this.parentVal);
       this.setHistory(this.parentVal);
     } },
-  (0, _vuex.mapMutations)(['setHistory', 'cleanHistory'])),
+  (0, _vuex.mapMutations)(['setHistory', 'cleanHistory'])), {}, {
+    // 通过点击搜索历史记录，进行搜索
+    openHistory: function openHistory(val) {
+      this.parentVal = val;
+      this._sendSearchData();
+    } }),
 
   computed: _objectSpread({},
   (0, _vuex.mapState)(['historyList'])) };exports.default = _default;

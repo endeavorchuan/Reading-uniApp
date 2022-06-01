@@ -19,25 +19,31 @@
 </template>
 
 <script>
+	import {mapState, mapMutations} from 'vuex'
 	export default {
 		onLoad() {
 			this._initLabelList();
 		},
 		data() {
 			return {
-				labelList: [],
 				activeIndex: 0
 			}
 		},
 		methods: {
 			async _initLabelList() {
+				if (this.labelList.length)
+					return
 				const labelList = await this.$http.get_label_list()
-				this.labelList = [{name:'全部'}, ...labelList]
+				this.setLabelList([{name:'全部'}, ...labelList])
 			},
 			changeActiveIndex(index) {
 				this.activeIndex = index
-			}
+			},
+			...mapMutations(['setLabelList'])
 		},
+		computed: {
+			...mapState(['labelList'])
+		}
 	}
 </script>
 

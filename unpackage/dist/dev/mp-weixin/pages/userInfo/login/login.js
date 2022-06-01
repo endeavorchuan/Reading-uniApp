@@ -280,7 +280,14 @@ var _vuex = __webpack_require__(/*! vuex */ 24);function _interopRequireDefault(
                     icon: 'none' });
 
                   setTimeout(function () {
+
+
+
+
+
+
                     uni.navigateBack();
+
                   }, 1500);
                 }case 4:case "end":return _context2.stop();}}}, _callee2);}))();
     },

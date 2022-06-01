@@ -16,7 +16,7 @@
 			activeIndex: Number
 		},
 		created() {
-			// this._getArticleList()
+			this.labelList.length && this._getArticleList(this.activeIndex)
 		},
 		watch: {
 			labelList(newValue, oldValue) {
