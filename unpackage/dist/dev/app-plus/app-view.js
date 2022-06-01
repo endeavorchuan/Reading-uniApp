@@ -451,7 +451,20 @@ var render = function() {
                     attrs: {
                       type: "text",
                       placeholder: "输入文章标题进行搜索",
+                      "confirm-type": "search",
                       _i: 8
+                    },
+                    on: {
+                      confirm: function($event) {
+                        return _vm.$handleViewEvent($event)
+                      }
+                    },
+                    model: {
+                      value: _vm._$g(8, "v-model"),
+                      callback: function($$v) {
+                        _vm.$handleVModelEvent(8, $$v)
+                      },
+                      expression: "searchVal"
                     }
                   })
             ],
@@ -1280,7 +1293,7 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 {
-  name: "NavBar", props: ["isSearch"],
+  name: "NavBar", props: ["isSearch", "parentVal"],
   data: function data() {
     return {
       wxsProps: {} };
@@ -1856,7 +1869,15 @@ var render = function() {
             "v-uni-view",
             { attrs: { _i: 2 } },
             _vm._l(_vm._$g(3, "f"), function(item, $10, $20, $30) {
-              return _c("ListCard", { key: item, attrs: { _i: "3-" + $30 } })
+              return _c("ListCard", {
+                key: item,
+                attrs: { _i: "3-" + $30 },
+                on: {
+                  saveSearchHistory: function($event) {
+                    return _vm.$handleViewEvent($event)
+                  }
+                }
+              })
             }),
             1
           ),
@@ -2732,7 +2753,7 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 {
-  name: "ListItem", props: ["articleList", "loadData"],
+  name: "ListItem", props: ["articleList", "loadData", "isShowLoadMore"],
   data: function data() {
     return {
       wxsProps: {} };
@@ -3314,13 +3335,23 @@ var render = function() {
     "v-uni-view",
     { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
     [
-      _c("NavBar", { attrs: { _i: 1 } }),
-      _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
-        [
-          _vm._$g(3, "i")
-            ? _c(
+      _c("NavBar", {
+        attrs: { _i: 1 },
+        on: {
+          updateVal: function($event) {
+            return _vm.$handleViewEvent($event)
+          },
+          sendSearchData: function($event) {
+            return _vm.$handleViewEvent($event)
+          }
+        }
+      }),
+      _vm._$g(2, "i")
+        ? _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(2, "sc"), attrs: { _i: 2 } },
+            [
+              _c(
                 "v-uni-view",
                 { staticClass: _vm._$g(3, "sc"), attrs: { _i: 3 } },
                 [
@@ -3341,11 +3372,16 @@ var render = function() {
                     ],
                     1
                   ),
-                  true
+                  _vm._$g(7, "i")
                     ? _c(
                         "v-uni-view",
                         { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
-                        _vm._l(10, function(item, $10, $20, $30) {
+                        _vm._l(_vm._$g(8, "f"), function(
+                          item,
+                          index,
+                          $20,
+                          $30
+                        ) {
                           return _c(
                             "v-uni-view",
                             {
@@ -3353,32 +3389,43 @@ var render = function() {
                               staticClass: _vm._$g("8-" + $30, "sc"),
                               attrs: { _i: "8-" + $30 }
                             },
-                            [_vm._v("直播")]
+                            [_vm._v(_vm._$g("8-" + $30, "t0-0"))]
                           )
                         }),
                         1
                       )
-                    : undefined
-                ],
-                1
-              )
-            : _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
-                [
-                  _vm._$g(11, "i")
-                    ? _c("ListItem", { attrs: { _i: 11 } })
                     : _c(
                         "v-uni-view",
-                        { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
-                        [_vm._v("没有搜索到相关数据")]
+                        { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+                        [_vm._v("当前没有搜索历史")]
                       )
                 ],
                 1
               )
-        ],
-        1
-      )
+            ],
+            1
+          )
+        : _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
+            [
+              _vm._$g(11, "i")
+                ? _c("ListItem", {
+                    attrs: { _i: 11 },
+                    on: {
+                      saveSearchHistory: function($event) {
+                        return _vm.$handleViewEvent($event)
+                      }
+                    }
+                  })
+                : _c(
+                    "v-uni-view",
+                    { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+                    [_vm._v("没有搜索到相关数据")]
+                  )
+            ],
+            1
+          )
     ],
     1
   )
@@ -4987,7 +5034,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "@charset \"UTF-8\";\n/**\n * 这里是uni-app内置的常用样式变量\n *\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\n *\n */\n/**\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\n *\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\n */\n/* 颜色变量 */\n/* 行为相关颜色 */\n/* 文字基本颜色 */\n/* 背景颜色 */\n/* 边框颜色 */\n/* 尺寸变量 */\n/* 文字尺寸 */\n/* 图片尺寸 */\n/* Border Radius */\n/* 水平间距 */\n/* 垂直间距 */\n/* 透明度 */\n/* 文章场景相关 */\n/* 添加一个flex布局的混编方法 */\n/* 全局系统样式定义 */\nbody {\n  background-color: #f5f5f5;\n  height: 100%;\n  display: flex;\n}\n.search-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n}\n.search-container .search-wrapper {\n  background-color: #fff;\n  margin-bottom: 20rpx;\n}\n.search-container .search-wrapper .search-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  font-size: 28rpx;\n  color: #666;\n  padding: 20rpx 30rpx;\n  border-bottom: 1px solid #f5f5f5;\n}\n.search-container .search-wrapper .search-header .history-text {\n  color: #f25037;\n}\n.search-container .search-wrapper .search-header .history-clean {\n  color: #30b33a;\n  font-weight: bold;\n}\n.search-container .search-wrapper .search-history-content {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  flex-wrap: wrap;\n  flex-direction: row;\n  padding: 30rpx;\n  padding-top: 0;\n}\n.search-container .search-wrapper .search-history-content .history-content-item {\n  padding: 4rpx 20rpx;\n  margin-top: 24rpx;\n  margin-right: 20rpx;\n  border-radius: 10rpx;\n  border: 1px solid #666;\n  font-size: 28rpx;\n  color: #666;\n}\n.search-container .search-wrapper .no-data {\n  height: 400rpx;\n  line-height: 400rpx;\n  width: 100%;\n  text-align: center;\n  font-size: 24rpx;\n  color: #666;\n}\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/**\n * 这里是uni-app内置的常用样式变量\n *\n * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量\n * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App\n *\n */\n/**\n * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能\n *\n * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件\n */\n/* 颜色变量 */\n/* 行为相关颜色 */\n/* 文字基本颜色 */\n/* 背景颜色 */\n/* 边框颜色 */\n/* 尺寸变量 */\n/* 文字尺寸 */\n/* 图片尺寸 */\n/* Border Radius */\n/* 水平间距 */\n/* 垂直间距 */\n/* 透明度 */\n/* 文章场景相关 */\n/* 添加一个flex布局的混编方法 */\n/* 全局系统样式定义 */\nbody {\n  background-color: #f5f5f5;\n  height: 100%;\n  display: flex;\n}\n.search-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n}\n.search-container .search-wrapper {\n  background-color: #fff;\n  margin-bottom: 20rpx;\n}\n.search-container .search-wrapper .search-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: nowrap;\n  flex-direction: row;\n  font-size: 28rpx;\n  color: #666;\n  padding: 20rpx 30rpx;\n  border-bottom: 1px solid #f5f5f5;\n}\n.search-container .search-wrapper .search-header .history-text {\n  color: #f25037;\n}\n.search-container .search-wrapper .search-header .history-clean {\n  color: #30b33a;\n  font-weight: bold;\n}\n.search-container .search-wrapper .search-history-content {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  flex-wrap: wrap;\n  flex-direction: row;\n  padding: 30rpx;\n  padding-top: 0;\n}\n.search-container .search-wrapper .search-history-content .history-content-item {\n  padding: 4rpx 20rpx;\n  margin-top: 24rpx;\n  margin-right: 20rpx;\n  border-radius: 10rpx;\n  border: 1px solid #666;\n  font-size: 28rpx;\n  color: #666;\n}\n.search-container .no-data {\n  height: 400rpx;\n  line-height: 400rpx;\n  width: 100%;\n  text-align: center;\n  font-size: 24rpx;\n  color: #666;\n}\n.search-container .search-list-container {\n  height: 100%;\n  flex: 1;\n  overflow: hidden;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

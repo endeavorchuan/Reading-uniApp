@@ -77,6 +77,7 @@
 		methods: {
 			goAtricleDetail() {
 				console.log('goAtricleDetail')
+				this.$emit('saveSearchHistory')
 			}
 		}
 	}

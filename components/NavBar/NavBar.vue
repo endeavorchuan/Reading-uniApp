@@ -10,7 +10,14 @@
 			<view @click="goSearchPage" class="nav-bar-content" :style="{marginRight: marginRight + 'rpx', marginLeft: isSearch ? '20rpx' : ''}">
 				<uni-icons type="search" color="#999"></uni-icons>
 				<view v-if="!isSearch" class="nav-bar-search-text">输入文章标题进行搜索</view>
-				<input v-else type="text" class="search-input" placeholder="输入文章标题进行搜索">
+				<input
+				v-else
+				type="text"
+				class="search-input"
+				v-model.trim="searchVal"
+				placeholder="输入文章标题进行搜索"
+				@confirm="changeInput"
+				confirm-type="search">
 			</view>
 		</view>
 		<!-- 底部的垫片 -->
@@ -25,7 +32,8 @@
 			isSearch: {
 				type: Boolean,
 				default: false
-			}
+			},
+			parentVal: String
 		},
 		created() {
 			this.getSystemInfo();
@@ -62,8 +70,25 @@
 				// #ifndef H5
 					uni.navigateBack()
 				// #endif
+			},
+			// 通知父组件进行搜索内容的查询
+			changeInput() {
+				this.$emit('sendSearchData')
 			}
 		},
+		computed: {
+			searchVal: {
+				get() {
+					return this.parentVal
+				},
+				set(val) {
+					this.$emit('updateVal', val)
+					if (!val) {
+						this.$emit('sendSearchData')
+					}
+				}
+			}
+		}
 	}
 </script>
 

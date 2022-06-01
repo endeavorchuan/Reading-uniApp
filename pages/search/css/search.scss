@@ -39,13 +39,18 @@ page {
 				color: #666;
 			}
 		}
-		.no-data {
-			height: 400rpx;
-			line-height: 400rpx;
-			width: 100%;
-			text-align: center;
-			font-size: 24rpx;
-			color: #666;
-		}
+	}
+	.no-data {
+		height: 400rpx;
+		line-height: 400rpx;
+		width: 100%;
+		text-align: center;
+		font-size: 24rpx;
+		color: #666;
+	}
+	.search-list-container {
+		height: 100%;
+		flex: 1;
+		overflow: hidden;
 	}
 }
