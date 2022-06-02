@@ -19,7 +19,9 @@
 			this.labelList.length && this._getArticleList(this.activeIndex)
 		},
 		watch: {
-			labelList(newValue, oldValue) {
+			labelList(newValue, oldValue) {		// 用户调整了自己的选项卡，触发了labelList更改，清空之前的数据，重新进行请求
+				this.articleData = {}
+				this.loadData = {}
 				this._getArticleList(this.activeIndex)
 			}
 		},

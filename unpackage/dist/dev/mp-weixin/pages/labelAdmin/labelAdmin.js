@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 17));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 17));
 
 
 
@@ -201,21 +201,53 @@ var _vuex = __webpack_require__(/*! vuex */ 24);function _interopRequireDefault(
 {
   data: function data() {
     return {
-      isEdit: false };
+      isEdit: false,
+      labelIds: [] };
 
   },
+  watch: {
+    userInfo: {
+      immediate: true,
+      handler: function handler(newVal, oldVal) {
+        this.labelIds = this.userInfo.label_ids;
+      } } },
+
+
   methods: {
     // 调整编辑的状态
     changeEditStatus: function changeEditStatus() {
       this.isEdit && this._updateLabel();
       this.isEdit = !this.isEdit;
     },
-    _updateLabel: function _updateLabel() {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                console.log('发送请求');case 1:case "end":return _context.stop();}}}, _callee);}))();
+    // 修改标签后发送给后端
+    _updateLabel: function _updateLabel() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var label_ids, _yield$_this$$http$up, msg;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                // user信息 userInfo._id  ids=>[]
+                label_ids = _this.selfLabelList.map(function (item) {return item._id;});_context.next = 3;return (
+                  _this.$http.update_label_ids({ userId: _this.userInfo._id, label_ids: label_ids }));case 3:_yield$_this$$http$up = _context.sent;msg = _yield$_this$$http$up.msg;
+                uni.showToast({
+                  title: msg });
+
+                _this.updateUserInfo(_objectSpread(_objectSpread({}, _this.userInfo), {}, { label_ids: label_ids }));case 7:case "end":return _context.stop();}}}, _callee);}))();
+    },
+    changeSelfLabelList: function changeSelfLabelList(item) {
+      if (!this.isEdit)
+      return;
+      this.labelIds.push(item._id);
+    },
+    // 删除收藏信息
+    deleteLabelItem: function deleteLabelItem(item) {
+      this.labelIds = this.labelIds.filter(function (id) {return id !== item._id;});
     } },
 
-  computed: _objectSpread({},
-  (0, _vuex.mapState)(['labelList'])) };exports.default = _default;
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapState)(['labelList'])), {}, {
+    selfLabelList: function selfLabelList() {var _this2 = this;
+      return this.labelList.filter(function (item) {return _this2.labelIds.includes(item._id);});
+    },
+    recommendLabelList: function recommendLabelList() {var _this3 = this;
+      return this.labelList.filter(function (item) {return !_this3.labelIds.includes(item._id) && item._id;}); // 全部没有id，剔除全部
+    } }) };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

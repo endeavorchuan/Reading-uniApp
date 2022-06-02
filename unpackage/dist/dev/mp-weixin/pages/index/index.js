@@ -202,8 +202,15 @@ var _vuex = __webpack_require__(/*! vuex */ 24);function _interopRequireDefault(
     } },
   (0, _vuex.mapMutations)(['setLabelList'])),
 
-  computed: _objectSpread({},
-  (0, _vuex.mapState)(['labelList'])) };exports.default = _default;
+  computed: {
+    labelList: function labelList() {var _this2 = this;
+      if (this.userInfo) {// 用户是登录状态
+        this.activeIndex = 0;
+        return [].concat(_toConsumableArray(this.$store.state.labelList.slice(0, 1)), _toConsumableArray(this.$store.state.labelList.filter(function (item) {return _this2.userInfo.label_ids.includes(item._id);})));
+      } else {
+        return this.$store.state.labelList;
+      }
+    } } };exports.default = _default;
 
 /***/ }),
 

@@ -3967,7 +3967,7 @@ webpackContext.id = 13;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get_search_data = exports.update_save_like = exports.get_article_list = exports.get_label_list = void 0;
+Object.defineProperty(exports, "__esModule", { value: true });exports.update_label_ids = exports.get_search_data = exports.update_save_like = exports.get_article_list = exports.get_label_list = void 0;
 
 var _http = _interopRequireDefault(__webpack_require__(/*! ../../http.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 首页面的请求
 
@@ -3991,7 +3991,13 @@ exports.get_article_list = get_article_list;var update_save_like = function upda
 // 获取搜索文章内容
 exports.update_save_like = update_save_like;var get_search_data = function get_search_data(data) {return (0, _http.default)({
     name: 'get_search_data',
-    data: data });};exports.get_search_data = get_search_data;
+    data: data });};
+
+
+// 修改用户保存的选项卡标签
+exports.get_search_data = get_search_data;var update_label_ids = function update_label_ids(data) {return (0, _http.default)({
+    name: 'update_label_ids',
+    data: data });};exports.update_label_ids = update_label_ids;
 
 /***/ }),
 

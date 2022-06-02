@@ -5204,31 +5204,38 @@ var render = function() {
                 "v-uni-view",
                 { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
                 [
-                  _vm._l(8, function(item, index, $20, $30) {
+                  _vm._l(_vm._$g(7, "f"), function(item, $10, $20, $30) {
                     return _c(
                       "v-uni-view",
                       {
-                        key: index,
+                        key: item,
                         staticClass: _vm._$g("7-" + $30, "sc"),
                         attrs: { _i: "7-" + $30 }
                       },
                       [
-                        _vm._v("前端开发"),
+                        _vm._v(_vm._$g("7-" + $30, "t0-0")),
                         _vm._$g("8-" + $30, "i")
                           ? _c("uni-icons", {
                               staticClass: _vm._$g("8-" + $30, "sc"),
-                              attrs: { _i: "8-" + $30 }
+                              attrs: { _i: "8-" + $30 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.$handleViewEvent($event)
+                                }
+                              }
                             })
                           : _vm._e()
                       ],
                       1
                     )
                   }),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
-                    [_vm._v("当前没有数据")]
-                  )
+                  _vm._$g(9, "i")
+                    ? _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+                        [_vm._v("当前没有数据")]
+                      )
+                    : _vm._e()
                 ],
                 2
               )
@@ -5255,22 +5262,29 @@ var render = function() {
                 "v-uni-view",
                 { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
                 [
-                  _vm._l(6, function(item, index, $21, $31) {
+                  _vm._l(_vm._$g(14, "f"), function(item, $11, $21, $31) {
                     return _c(
                       "v-uni-view",
                       {
-                        key: index,
+                        key: item,
                         staticClass: _vm._$g("14-" + $31, "sc"),
-                        attrs: { _i: "14-" + $31 }
+                        attrs: { _i: "14-" + $31 },
+                        on: {
+                          click: function($event) {
+                            return _vm.$handleViewEvent($event)
+                          }
+                        }
                       },
-                      [_vm._v("前端开发")]
+                      [_vm._v(_vm._$g("14-" + $31, "t0-0"))]
                     )
                   }),
-                  _c(
-                    "v-uni-view",
-                    { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
-                    [_vm._v("当前没有数据")]
-                  )
+                  _vm._$g(15, "i")
+                    ? _c(
+                        "v-uni-view",
+                        { staticClass: _vm._$g(15, "sc"), attrs: { _i: 15 } },
+                        [_vm._v("当前没有数据")]
+                      )
+                    : _vm._e()
                 ],
                 2
               )
