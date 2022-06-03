@@ -96,10 +96,10 @@ var components
 try {
   components = {
     NavBar: function() {
-      return __webpack_require__.e(/*! import() | components/NavBar/NavBar */ "components/NavBar/NavBar").then(__webpack_require__.bind(null, /*! @/components/NavBar/NavBar.vue */ 67))
+      return __webpack_require__.e(/*! import() | components/NavBar/NavBar */ "components/NavBar/NavBar").then(__webpack_require__.bind(null, /*! @/components/NavBar/NavBar.vue */ 75))
     },
     ListItem: function() {
-      return __webpack_require__.e(/*! import() | components/ListItem/ListItem */ "components/ListItem/ListItem").then(__webpack_require__.bind(null, /*! @/components/ListItem/ListItem.vue */ 88))
+      return __webpack_require__.e(/*! import() | components/ListItem/ListItem */ "components/ListItem/ListItem").then(__webpack_require__.bind(null, /*! @/components/ListItem/ListItem.vue */ 96))
     }
   }
 } catch (e) {

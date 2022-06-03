@@ -75,8 +75,11 @@
 			};
 		},
 		methods: {
+			// 跳转到详情界面
 			goAtricleDetail() {
-				console.log('goAtricleDetail')
+				uni.navigateTo({
+					url: '/pages/articleDetail/articleDetail'
+				})
 				this.$emit('saveSearchHistory')
 			}
 		}
