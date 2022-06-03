@@ -77,8 +77,11 @@
 		methods: {
 			// 跳转到详情界面
 			goAtricleDetail() {
+				// 跳转时会有item参数携带过去
+				const {_id, title, author, create_time, thumbs_up_count, browse_count} = this.item
+				const params = {_id, title, author, create_time, thumbs_up_count, browse_count}
 				uni.navigateTo({
-					url: '/pages/articleDetail/articleDetail'
+					url: `/pages/articleDetail/articleDetail?params=${JSON.stringify(params)}`
 				})
 				this.$emit('saveSearchHistory')
 			}

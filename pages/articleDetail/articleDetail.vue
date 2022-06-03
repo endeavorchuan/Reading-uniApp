@@ -1,32 +1,32 @@
 <template>
 	<view class="article-detail-container">
 		<view class="detail-title">
-			《故宫博物院》集训营直播课开讲了（4月17号）
+      {{ articleData.title }}
 		</view>
-		
+
 		<view class="detail-header">
 			<view class="detail-logo">
-				<image class="logo-img" src="../../static/img/logo.jpeg" mode="aspectFill"></image>
+				<image class="logo-img" :src="articleData.author.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="detail-header-content">
 				<view class="detail-header-content-title">
-					WEB讲师
+          {{ articleData.author.author_name }}
 				</view>
 				<view class="detail-header-content-info">
-					<text class="header-text">2020.03.16 17:50</text>
-					<text class="header-text">173 浏览</text>
-					<text class="header-text">6 赞</text>
+					<text class="header-text">{{ articleData.create_time }}</text>
+					<text class="header-text">{{ articleData.browse_count }} 浏览</text>
+					<text class="header-text">{{ articleData.thumbs_up_count }} 赞</text>
 				</view>
 			</view>
 			<button type="default" class="detail-header-button">取消关注</button>
 		</view>
-		
+
 		<view class="detail-content-container">
 			<view class="detail-html">
-				文本内容
+				<u-parse :content="content"></u-parse>
 			</view>
 		</view>
-		
+
 		<!-- 评论输入组件 -->
 		<view class="detail-bottom">
 			<view class="input-container">
@@ -49,18 +49,41 @@
 </template>
 
 <script>
+	import uParse from '@/components/u-parse/u-parse.vue'
+	import {marked} from 'marked'
+	
 	export default {
+		components: {
+			uParse
+		},
+		onLoad(...options) {
+			this.articleData = JSON.parse(options[0].params)
+			// 文章详情获取
+			this._getArticleDetail()
+		},
 		data() {
 			return {
-				
+				articleData: null
 			}
 		},
 		methods: {
-			
+			async _getArticleDetail() {
+				const data = await this.$http.get_article_detail({article_id: this.articleData._id})
+				this.articleData = data
+			}
+		},
+		computed: {
+			content() {
+				try {
+					return marked(this.articleData.content)
+				} catch (error) {
+					return null
+				}
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
-@import './css/articleDetail.scss'
+@import './css/articleDetail.scss';
 </style>
