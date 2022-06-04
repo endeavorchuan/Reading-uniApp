@@ -29,7 +29,7 @@
 
 		<!-- 评论输入组件 -->
 		<view class="detail-bottom">
-			<view class="input-container">
+			<view class="input-container" @click="openMaskerComment">
 				<text class="footer-text">谈谈你的看法</text>
 				<uni-icons type="compose" size="16" color="#f07373"></uni-icons>
 			</view>
@@ -45,6 +45,13 @@
 				</view>
 			</view>
 		</view>
+		
+		<!-- 评论组件 -->
+		<CommentMasker
+			:showPopup="showPopup"
+			@closePopupMasker="showPopup=$event"
+			@sendCommentData="_sendCommentData"
+		></CommentMasker>
 	</view>
 </template>
 
@@ -63,13 +70,29 @@
 		},
 		data() {
 			return {
-				articleData: null
+				articleData: null,
+				showPopup: false
 			}
 		},
 		methods: {
 			async _getArticleDetail() {
 				const data = await this.$http.get_article_detail({article_id: this.articleData._id})
 				this.articleData = data
+			},
+			
+			// 打开评论弹窗
+			async openMaskerComment() {
+				await this.checkedisLogin()
+				this.showPopup = true
+			},
+			
+			// 发送评论内容到后端
+			async _sendCommentData(content) {
+				const {msg} = await this.$http.update_comment({userId: this.userInfo._id, articleId: this.articleData._id, content})
+				uni.showToast({
+					title: msg
+				})
+				this.showPopup = false
 			}
 		},
 		computed: {

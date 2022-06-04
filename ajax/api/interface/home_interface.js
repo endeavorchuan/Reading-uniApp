@@ -36,3 +36,9 @@ export const get_article_detail = data => ajax({
 	name: 'get_article_detail',
 	data
 })
+
+// 修改文章评论内容
+export const update_comment = data => ajax({
+	name: 'update_comment',
+	data
+})
