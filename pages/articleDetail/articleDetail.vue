@@ -18,7 +18,9 @@
 					<text class="header-text">{{ articleData.thumbs_up_count }} 赞</text>
 				</view>
 			</view>
-			<button type="default" class="detail-header-button">取消关注</button>
+			<button type="default" class="detail-header-button" @click="_followAuthor">
+        {{ isFollowAuthor ? '取消关注' : '关注' }}
+      </button>
 		</view>
 
 		<view class="detail-content-container">
@@ -49,15 +51,13 @@
 				<view class="detail-bottom-icon-box">
 					<uni-icons type="chat" size="22" color="#f07373"></uni-icons>
 				</view>
-				<view class="detail-bottom-icon-box">
-					<uni-icons type="heart" size="22" color="#f07373"></uni-icons>
-				</view>
+        <SaveLikes class="detail-bottom-icon-box" :articleId="articleData._id" size="22"></SaveLikes>
 				<view class="detail-bottom-icon-box">
 					<uni-icons type="hand-up" size="22" color="#f07373"></uni-icons>
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 评论组件 -->
 		<CommentMasker
 			:showPopup="showPopup"
@@ -70,7 +70,8 @@
 <script>
 	import uParse from '@/components/u-parse/u-parse.vue'
 	import {marked} from 'marked'
-	
+  import follow from "../follow/follow";
+
 	export default {
 		components: {
 			uParse
@@ -94,13 +95,13 @@
 				const data = await this.$http.get_article_detail({article_id: this.articleData._id})
 				this.articleData = data
 			},
-			
+
 			// 打开评论弹窗
 			async openMaskerComment() {
 				await this.checkedisLogin()
 				this.showPopup = true
 			},
-			
+
 			// 发送评论内容到后端
 			async _sendCommentData(content) {
 				const {msg} = await this.$http.update_comment({userId: this.userInfo._id, articleId: this.articleData._id, content})
@@ -109,12 +110,29 @@
 				})
 				this.showPopup = false
 			},
-			
+
 			// 获取文章评论列表
 			async _commentList() {
 				const listArr = await this.$http.get_comments({articleId: this.articleData._id})
 				this.commentList = listArr
-			}
+			},
+
+      // 改变用户关注作者的状态
+      async _followAuthor() {
+        await this.checkedisLogin()
+			  const {msg} = await this.$http.update_follow_author({authorId: this.articleData.author.id, userId: this.userInfo._id})
+        uni.showToast({           // 显示弹窗
+          title: msg
+        })
+        // 改变store里面的用户存储的数据，本地存储同样修改
+        let followIds = [...this.userInfo.author_likes_ids]
+        if (followIds.includes(this.articleData.author.id)) {
+          followIds = followIds.filter(item => item !== this.articleData.author.id)
+        } else {
+          followIds.push(this.articleData.author.id)
+        }
+        this.updateUserInfo({...this.userInfo, author_likes_ids: followIds})
+      }
 		},
 		computed: {
 			content() {
@@ -123,7 +141,11 @@
 				} catch (error) {
 					return null
 				}
-			}
+			},
+      // 是否关注作者
+      isFollowAuthor() {
+			  return this.userInfo && this.userInfo.author_likes_ids.includes(this.articleData.author.id)
+      }
 		}
 	}
 </script>

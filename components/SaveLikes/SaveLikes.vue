@@ -1,6 +1,6 @@
 <template>
 	<view  @click.stop="_changeSaveStatus" class="save-icons">
-		<uni-icons color="#ff6600" :type="isSave ? 'heart-filled' : 'heart'" size="20"></uni-icons>
+		<uni-icons color="#ff6600" :type="isSave ? 'heart-filled' : 'heart'" :size="size"></uni-icons>
 	</view>
 </template>
 
@@ -8,7 +8,11 @@
 	export default {
 		name:"SaveLikes",
 		props: {
-			articleId: String
+			articleId: String,
+      size: {
+			  type: String,
+        default: '20'
+      }
 		},
 		data() {
 			return {

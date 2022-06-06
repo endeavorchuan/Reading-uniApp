@@ -48,3 +48,9 @@ export const get_comments = data => ajax({
 	name: 'get_comments',
 	data
 })
+
+// 修改保存文章作者状态
+export const update_follow_author = data => ajax({
+	name: 'update_follow_author',
+	data
+})
