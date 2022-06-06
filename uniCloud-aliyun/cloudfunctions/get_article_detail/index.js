@@ -8,6 +8,9 @@ exports.main = async (event, context) => {
 	.match({
 		_id: article_id
 	})
+	.project({
+		commentObj: 0
+	})
 	.end();
 	
 	//返回数据给客户端

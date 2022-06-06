@@ -42,3 +42,9 @@ export const update_comment = data => ajax({
 	name: 'update_comment',
 	data
 })
+
+// 获取文章的评论列表
+export const get_comments = data => ajax({
+	name: 'get_comments',
+	data
+})

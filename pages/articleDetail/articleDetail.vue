@@ -25,6 +25,18 @@
 			<view class="detail-html">
 				<u-parse :content="content"></u-parse>
 			</view>
+			<!-- 评论内容部分 -->
+			<view class="detail-comment">
+				<view class="comment-title">
+					最新评论
+				</view>
+				<view class="comment-content-container" v-for="(item, index) in commentList" :key="index">
+					<CommentBox :commentData="item"></CommentBox>
+				</view>
+				<view v-if="commentList.length" class="no-data">
+					暂无评论
+				</view>
+			</view>
 		</view>
 
 		<!-- 评论输入组件 -->
@@ -67,11 +79,14 @@
 			this.articleData = JSON.parse(options[0].params)
 			// 文章详情获取
 			this._getArticleDetail()
+			// 初始化获取评论列表
+			this._commentList()
 		},
 		data() {
 			return {
 				articleData: null,
-				showPopup: false
+				showPopup: false,
+				commentList: []
 			}
 		},
 		methods: {
@@ -93,6 +108,12 @@
 					title: msg
 				})
 				this.showPopup = false
+			},
+			
+			// 获取文章评论列表
+			async _commentList() {
+				const listArr = await this.$http.get_comments({articleId: this.articleData._id})
+				this.commentList = listArr
 			}
 		},
 		computed: {
