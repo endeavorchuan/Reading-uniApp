@@ -20,6 +20,8 @@
 		},
 		watch: {
 			labelList(newValue, oldValue) {		// 用户调整了自己的选项卡，触发了labelList更改，清空之前的数据，重新进行请求
+			  if (JSON.stringify(oldValue) === JSON.stringify(newValue))
+          return
 				this.articleData = {}
 				this.loadData = {}
 				this._getArticleList(this.activeIndex)
@@ -51,13 +53,13 @@
 						total: 0
 					}
 				}
-				
+
 				const {articleList, total} = await this.$http.get_article_list({
 					classify: this.labelList[currentIndex].name,
 					page: this.loadData[currentIndex].page,
 					pageSize: this.pageSize
 				})
-				
+
 				let oldList = this.articleData[currentIndex] || []	 // 追加每一次的请求数据结果
 				oldList.push(...articleList)
 				this.loadData[currentIndex].total = total
