@@ -53,7 +53,7 @@
 				</view>
         <SaveLikes class="detail-bottom-icon-box" :articleId="articleData._id" size="22"></SaveLikes>
 				<view class="detail-bottom-icon-box">
-					<uni-icons type="hand-up" size="22" color="#f07373"></uni-icons>
+					<uni-icons :type="isCompliments ? 'hand-up-filled' : 'hand-up'" size="22" color="#f07373" @click="_updateCompliments"></uni-icons>
 				</view>
 			</view>
 		</view>
@@ -132,6 +132,24 @@
           followIds.push(this.articleData.author.id)
         }
         this.updateUserInfo({...this.userInfo, author_likes_ids: followIds})
+      },
+
+      // 是否对文章进行点赞
+      async _updateCompliments() {
+			  const {msg} = await this.$http.update_compliments({articleId: this.articleData._id, userId: this.userInfo._id})
+        uni.showToast({
+          title: msg
+        })
+        // 修改用户的点赞数组的存储
+        let thumbsArr = [...this.userInfo.thumbs_up_article_ids]
+        if (thumbsArr.includes(this.articleData._id)) {
+          thumbsArr = thumbsArr.filter(item => item !== this.articleData._id)
+          this.articleData.thumbs_up_count -= 1
+        } else {
+          this.articleData.thumbs_up_count += 1
+          thumbsArr.push(this.articleData._id)
+        }
+        this.updateUserInfo({...this.userInfo, thumbs_up_article_ids: thumbsArr})
       }
 		},
 		computed: {
@@ -148,6 +166,14 @@
           return this.userInfo && this.userInfo.author_likes_ids.includes(this.articleData.author.id)
         } catch (error) {
 			    return false
+        }
+      },
+      // 是否对文章进行点赞
+      isCompliments() {
+        try{
+          return this.userInfo && this.userInfo.thumbs_up_article_ids.includes(this.articleData._id)
+        } catch (error) {
+          return false
         }
       }
 		}

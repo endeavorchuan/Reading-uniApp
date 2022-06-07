@@ -54,3 +54,9 @@ export const update_follow_author = data => ajax({
 	name: 'update_follow_author',
 	data
 })
+
+// 点赞文章
+export const update_compliments = data => ajax({
+	name: 'update_compliments',
+	data
+})
