@@ -144,7 +144,11 @@
 			},
       // 是否关注作者
       isFollowAuthor() {
-			  return this.userInfo && this.userInfo.author_likes_ids.includes(this.articleData.author.id)
+			  try{
+          return this.userInfo && this.userInfo.author_likes_ids.includes(this.articleData.author.id)
+        } catch (error) {
+			    return false
+        }
       }
 		}
 	}

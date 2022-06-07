@@ -37,7 +37,11 @@
 		},
 		computed: {
 			isSave() {
-				return this.userInfo && this.userInfo.article_likes_ids.includes(this.articleId)
+        try {
+          return this.userInfo && this.userInfo.article_likes_ids.includes(this.articleId)
+        } catch (error) {
+          return false
+        }
 			}
 		}
 	}
