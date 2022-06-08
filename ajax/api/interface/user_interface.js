@@ -13,3 +13,9 @@ export const get_code = data => ajax({
 	name: 'get_code',
 	data
 })
+
+// 获取收藏文章
+export const get_follow_article = data => ajax({
+	name: 'get_follow_article',
+	data
+})
