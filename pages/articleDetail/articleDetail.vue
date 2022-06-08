@@ -77,7 +77,7 @@
 			uParse
 		},
 		onLoad(...options) {
-			this.articleData = JSON.parse(options[0].params)
+			this.articleData = this.$Router.currentRoute.query.params
 			// 文章详情获取
 			this._getArticleDetail()
 			// 初始化获取评论列表
