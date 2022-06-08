@@ -40,6 +40,10 @@
         return
       }
       // #endif
+      uni.$on('updateArticle', () => {
+        this._getFollowArticle()
+        console.log('event')
+      })
       this._getFollowArticle()
     },
 		data() {

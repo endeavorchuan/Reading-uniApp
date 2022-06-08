@@ -33,6 +33,7 @@
 					icon: 'none'
 				})
 				this.updateUserInfo({...this.userInfo, ...newUserInfo})
+        uni.$emit('updateArticle')
 			}
 		},
 		computed: {
