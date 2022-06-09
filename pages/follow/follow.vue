@@ -32,7 +32,7 @@
 <script>
 	export default {
 	  onLoad() {
-	    // #indef MP-WEIXIN
+	    // #ifdef MP-WEIXIN
       if (!this.userInfo) {
         uni.redirectTo({
           url: 'pages/userInfo/login/login'
