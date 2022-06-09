@@ -12,7 +12,10 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 6));
 var _index = _interopRequireDefault(__webpack_require__(/*! ajax/api/index.js */ 12));
 var _rulesMixin = _interopRequireDefault(__webpack_require__(/*! ./common/rulesMixin.js */ 22));
 var _commonMixin = _interopRequireDefault(__webpack_require__(/*! ./common/commonMixin.js */ 23));
-var _index2 = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
+var _index2 = _interopRequireDefault(__webpack_require__(/*! ./store/index.js */ 25));
+
+var _router = __webpack_require__(/*! ./ router.js */ 29);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__; //路径换成自己的
+_vue.default.use(_router.router);
 _vue.default.use(_rulesMixin.default);
 _vue.default.use(_commonMixin.default);
 _vue.default.config.productionTip = false;
@@ -24,7 +27,14 @@ var app = new _vue.default(_objectSpread(_objectSpread({},
 _App.default), {}, {
   store: _index2.default }));
 
-createApp(app).$mount();
+
+//v1.3.5起 H5端 你应该去除原有的app.$mount();使用路由自带的渲染方式
+
+
+
+
+
+createApp(app).$mount(); //为了兼容小程序及app端必须这样写才有效果
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 
 /***/ }),
