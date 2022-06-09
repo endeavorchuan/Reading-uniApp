@@ -7452,7 +7452,6 @@ var router = (0, _uniSimpleRouter.createRouter)({
 //全局路由前置守卫
 exports.router = router;router.beforeEach(function (to, from, next) {
   if (to.name === "needLogin" && !_index.default.state.userInfo) {
-    console.log('重新跳转界面');
     next({
       name: 'login',
       NAVTYPE: 'push' // 跳转到普通的界面，新开的界面保留历史记录

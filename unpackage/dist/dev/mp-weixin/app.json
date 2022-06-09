@@ -5,12 +5,13 @@
     "pages/self/self",
     "pages/search/search",
     "pages/userInfo/login/login",
-    "pages/labelAdmin/labelAdmin"
+    "pages/labelAdmin/labelAdmin",
+    "pages/articleDetail/articleDetail"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "通用信息平台",
     "navigationBarBackgroundColor": "#f25037",
     "backgroundColor": "#F8F8F8"
   },

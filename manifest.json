@@ -70,6 +70,20 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "template" : "index.html"
+        "template" : "index.html",
+        "title" : "通用信息平台",
+        "router" : {
+            "mode" : "hash",
+            "base" : "./"
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "devServer" : {
+            "https" : true
+        },
+        "domain" : "static-b1406be2-4108-4fef-872b-467fcb27fc87.bspapp.com"
     }
 }

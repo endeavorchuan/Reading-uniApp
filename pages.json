@@ -51,7 +51,7 @@
     }],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "通用信息平台",
 		"navigationBarBackgroundColor": "#f25037",
 		"backgroundColor": "#F8F8F8"
 	},
