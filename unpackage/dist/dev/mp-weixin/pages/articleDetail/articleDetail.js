@@ -81,6 +81,9 @@ try {
   components = {
     ListItem: function() {
       return __webpack_require__.e(/*! import() | components/ListItem/ListItem */ "components/ListItem/ListItem").then(__webpack_require__.bind(null, /*! @/components/ListItem/ListItem.vue */ 109))
+    },
+    AuthorList: function() {
+      return __webpack_require__.e(/*! import() | components/AuthorList/AuthorList */ "components/AuthorList/AuthorList").then(__webpack_require__.bind(null, /*! @/components/AuthorList/AuthorList.vue */ 313))
     }
   }
 } catch (e) {
@@ -104,6 +107,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.currentIndex = 0
+    }
+
+    _vm.e1 = function($event) {
+      _vm.currentIndex = 1
+    }
+
+    _vm.e2 = function($event) {
+      _vm.currentIndex = $event.detail.current
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -168,6 +184,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   onLoad: function onLoad() {var _this = this;
@@ -181,15 +200,20 @@ var _default =
 
     uni.$on('updateArticle', function () {
       _this._getFollowArticle();
-      console.log('event');
+    });
+    uni.$on('updateFollowAuthor', function () {
+      _this._getAuthorList();
     });
     this._getFollowArticle();
+    this._getAuthorList();
   },
   data: function data() {
     return {
       currentIndex: 0,
       articleList: [],
-      dataNone: false };
+      articleDataNone: false,
+      authorDataNone: false,
+      authorList: [] };
 
   },
   methods: {
@@ -197,7 +221,15 @@ var _default =
     _getFollowArticle: function _getFollowArticle() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var list;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   _this2.$http.get_follow_article({ userId: _this2.userInfo._id }));case 2:list = _context.sent;
                 _this2.articleList = list;
-                _this2.dataNone = list.length === 0;case 5:case "end":return _context.stop();}}}, _callee);}))();
+                _this2.articleDataNone = list.length === 0;case 5:case "end":return _context.stop();}}}, _callee);}))();
+    },
+
+    // 请求关注的作者列表
+    _getAuthorList: function _getAuthorList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var list;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this3.$http.get_follow_author({ userId: _this3.userInfo._id }));case 2:list = _context2.sent;
+                _this3.authorList = list;
+                _this3.authorDataNone = list.length === 0;
+                console.log(_this3.authorDataNone);case 6:case "end":return _context2.stop();}}}, _callee2);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
@@ -535,7 +567,8 @@ var _follow = _interopRequireDefault(__webpack_require__(/*! ../follow/follow */
                 } else {
                   followIds.push(_this5.articleData.author.id);
                 }
-                _this5.updateUserInfo(_objectSpread(_objectSpread({}, _this5.userInfo), {}, { author_likes_ids: followIds }));case 10:case "end":return _context5.stop();}}}, _callee5);}))();
+                _this5.updateUserInfo(_objectSpread(_objectSpread({}, _this5.userInfo), {}, { author_likes_ids: followIds }));
+                uni.$emit('updateFollowAuthor');case 11:case "end":return _context5.stop();}}}, _callee5);}))();
     },
 
     // 是否对文章进行点赞

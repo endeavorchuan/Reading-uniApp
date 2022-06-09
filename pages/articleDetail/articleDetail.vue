@@ -132,6 +132,7 @@
           followIds.push(this.articleData.author.id)
         }
         this.updateUserInfo({...this.userInfo, author_likes_ids: followIds})
+        uni.$emit('updateFollowAuthor')
       },
 
       // 是否对文章进行点赞
